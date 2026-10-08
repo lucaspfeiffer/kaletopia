@@ -1,36 +1,24 @@
+/* @font-face rules live in src/layouts/Base.astro so the URL can carry the base path. */
+
 :root {
   color-scheme: light;
-  --paper: #fbfaf6;
-  --paper-2: #f2f0ea;
-  --ink: #141414;
-  --ink-2: #4a4a48;
-  --ink-3: #8a8884;
-  --rule: #d9d6cf;
-  --rule-strong: #141414;
-  --accent: #b5471b;
+  --paper: #ffffff;
+  --paper-2: #f7f7f7;
+  --ink: #121212;
+  --ink-2: #5a5a5a;
+  --ink-3: #727272;
+  --rule: #dfdfdf;
+  --rule-strong: #121212;
+  --accent: #326891;
   --yes: #c2571f;
   --no: #2f5f8a;
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", Times, serif;
+  --sans: "Libre Franklin", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --blackletter: 'UnifrakturMaguntia', 'Old English Text MT', serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --measure: 38rem;
-  --gutter: clamp(1rem, 4vw, 2.5rem);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --paper: #151412;
-    --paper-2: #1e1d1a;
-    --ink: #ece9e2;
-    --ink-2: #b7b3aa;
-    --ink-3: #7d7a73;
-    --rule: #2f2d29;
-    --rule-strong: #ece9e2;
-    --accent: #e07a46;
-    --yes: #e07a46;
-    --no: #6f9fcf;
-  }
+  --measure: 37.5rem;
+  --gutter: clamp(1rem, 3vw, 1.5rem);
+  --page: 75rem;
 }
 
 * { box-sizing: border-box; }
@@ -39,91 +27,80 @@ html {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--serif);
-  font-size: 17px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.45;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-body {
-  margin: 0;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-}
-
+body { margin: 0; min-height: 100dvh; display: flex; flex-direction: column; background: var(--paper); }
 main { flex: 1; }
 
-a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
-a:hover { color: var(--accent); }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
 
 img, video, canvas { max-width: 100%; height: auto; display: block; }
 
-h1, h2, h3, h4 { font-weight: 600; line-height: 1.15; margin: 0; letter-spacing: -0.01em; }
+h1, h2, h3, h4 { font-weight: 700; line-height: 1.15; margin: 0; }
 
-.wrap {
-  width: min(100%, 76rem);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
+.wrap { width: min(100%, var(--page)); margin-inline: auto; padding-inline: var(--gutter); }
 
 .label {
   font-family: var(--sans);
-  font-size: 0.72rem;
+  font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--ink-2);
+  color: var(--ink-3);
+}
+.kicker {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink);
 }
 
 .rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
-.rule-strong { border: 0; border-top: 2px solid var(--rule-strong); margin: 0; }
+.rule-strong { border: 0; border-top: 1px solid var(--rule-strong); margin: 0; }
+.rule-double { border: 0; border-top: 2px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); height: 4px; margin: 0; }
+
+/* Section heads: small caps with a hairline beneath, as in a paper's section fronts */
+.section-head {
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
 
 /* Prose inside an entry */
-.prose {
-  max-width: var(--measure);
-  margin-inline: auto;
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
+.prose { max-width: var(--measure); margin-inline: auto; font-size: 1.25rem; line-height: 1.55; }
 .prose p { margin: 0 0 1.25em; }
-.prose h2 {
-  font-size: 1.35rem;
-  margin: 2.25em 0 0.75em;
-}
-.prose h3 { font-size: 1.1rem; margin: 1.75em 0 0.5em; }
-.prose blockquote {
-  margin: 1.5em 0;
-  padding-left: 1.25em;
-  border-left: 2px solid var(--rule-strong);
-  color: var(--ink-2);
-  font-style: italic;
-}
+.prose h2 { font-size: 1.375rem; margin: 2em 0 0.6em; }
+.prose h3 { font-size: 1.125rem; margin: 1.6em 0 0.5em; }
+.prose a { text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 0.15em; }
+.prose a:hover { text-decoration-color: var(--ink); }
+.prose blockquote { margin: 1.5em 0; padding-left: 1.25em; border-left: 2px solid var(--rule-strong); color: var(--ink-2); font-style: italic; }
 .prose blockquote cite { display: block; font-style: normal; font-size: 0.9em; margin-top: 0.5em; color: var(--ink-3); }
 .prose ul, .prose ol { padding-left: 1.4em; margin: 0 0 1.25em; }
 .prose li { margin-bottom: 0.4em; }
 .prose figure:not(.sim-frame) { margin: 2em 0; }
-.prose figcaption, .caption {
-  font-family: var(--sans);
-  font-size: 0.8rem;
-  color: var(--ink-3);
-  margin-top: 0.5em;
-  line-height: 1.45;
-}
+.prose figcaption, .caption { font-family: var(--sans); font-size: 0.75rem; color: var(--ink-3); margin-top: 0.5em; line-height: 1.45; }
 .prose code { font-family: var(--mono); font-size: 0.9em; }
-.prose .wide { width: min(100vw - 2 * var(--gutter), 76rem); margin-inline: calc(50% - min(50vw - var(--gutter), 38rem)); }
 
 /* Simulations break out of the measure */
 .sim-frame, .prose .sim-frame {
-  width: min(100vw - 2 * var(--gutter), 76rem);
+  width: min(100vw - 2 * var(--gutter), var(--page) - 2 * var(--gutter));
   margin: 2.5rem 0;
-  margin-inline: calc(50% - min(50vw - var(--gutter), 38rem));
-  border-top: 2px solid var(--rule-strong);
+  margin-inline: calc(50% - min(50vw - var(--gutter), (var(--page) - 2 * var(--gutter)) / 2));
+  border-top: 1px solid var(--rule-strong);
   border-bottom: 1px solid var(--rule);
   padding: 1rem 0 1.25rem;
 }
 
 @media (max-width: 40rem) {
-  html { font-size: 16px; }
-  .prose { font-size: 1.05rem; }
+  .prose { font-size: 1.125rem; }
 }

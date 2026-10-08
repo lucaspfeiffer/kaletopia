@@ -11,6 +11,11 @@ interface Props {
 }
 const { title, description = 'Kaletopia is an art project for humanity: a curated encyclopedia of history and ideas, read as text, imagery, video, and interactive simulations.', compact = false } = Astro.props;
 const fullTitle = title === 'Kaletopia' ? title : `${title} · Kaletopia`;
+const fonts = withBase('fonts/');
+const fontFaces = `
+@font-face { font-family: 'UnifrakturMaguntia'; src: url('${fonts}UnifrakturMaguntia.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Libre Franklin'; src: url('${fonts}LibreFranklin.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+`;
 ---
 
 <html lang="en">
@@ -23,6 +28,9 @@ const fullTitle = title === 'Kaletopia' ? title : `${title} · Kaletopia`;
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="article" />
+    <link rel="preload" as="font" type="font/woff2" href={`${fonts}UnifrakturMaguntia.woff2`} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={`${fonts}LibreFranklin.woff2`} crossorigin />
+    <style is:inline set:html={fontFaces}></style>
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <link rel="alternate" type="application/json" href={withBase('api/entries.json')} title="Kaletopia entries" />
   </head>

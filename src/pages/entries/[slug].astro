@@ -1,7 +1,8 @@
 ---
 import { getEntry, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { allEntries, formatWhen, formatDate } from '../../lib/entries';
+import { allEntries, formatWhen, formatDate, readMinutes } from '../../lib/entries';
+import { sectionForKind } from '../../lib/sections';
 import { withBase } from '../../lib/url';
 
 export async function getStaticPaths() {
@@ -12,6 +13,8 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
+const section = sectionForKind(d.kind);
+const minutes = readMinutes(entry);
 const related = await Promise.all(
   d.related.map(async (r) => ({ relation: r.relation, target: await getEntry(r.entry) })),
 );
@@ -20,14 +23,18 @@ const related = await Promise.all(
 <Base title={d.title} description={d.summary} compact>
   <article class="wrap entry">
     <header class="head">
-      <p class="label kicker">
-        <span>{d.kind}</span>
+      <p class="topline label">
+        <a href={withBase(`${section.slug}/`)}>{section.label}</a>
         {d.when && <span>{formatWhen(d.when)}</span>}
       </p>
       <h1>{d.title}</h1>
       <p class="deck">{d.summary}</p>
-      <p class="byline label">
-        By {d.authors.join(', ')} · Published {formatDate(d.published)}{d.updated && ` · Updated ${formatDate(d.updated)}`}
+      <p class="byline">By {d.authors.join(', ')}</p>
+      <p class="dateline label">
+        <span>{formatDate(d.published)}</span>
+        {d.updated && <span>Updated {formatDate(d.updated)}</span>}
+        <span>{minutes} min read</span>
+        {d.media.includes('simulation') && <span class="interactive">Interactive</span>}
       </p>
     </header>
 
@@ -79,11 +86,15 @@ const related = await Promise.all(
 <style>
   .entry { padding-top: 2rem; }
   .head { max-width: var(--measure); margin-inline: auto; text-align: center; }
-  .kicker { color: var(--ink-3); margin: 0 0 0.75rem; display: flex; justify-content: center; gap: 0.35rem; }
-  .kicker span + span::before { content: '· '; }
-  h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; }
-  .deck { font-size: 1.2rem; color: var(--ink-2); margin: 1rem 0 0.75rem; line-height: 1.45; }
-  .byline { color: var(--ink-3); margin: 0 0 2rem; }
+  .topline { margin: 0 0 0.75rem; display: flex; justify-content: center; gap: 0.35rem; }
+  .topline a { color: var(--ink); }
+  .topline span::before { content: '· '; }
+  h1 { font-size: clamp(2rem, 4.5vw, 2.75rem); font-weight: 700; letter-spacing: -0.01em; }
+  .deck { font-size: 1.25rem; color: var(--ink-2); margin: 1rem 0 1rem; line-height: 1.4; }
+  .byline { font-family: var(--sans); font-size: 0.875rem; font-weight: 600; margin: 0 0 0.3rem; }
+  .dateline { margin: 0 0 2rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 0.35rem; font-weight: 500; letter-spacing: 0.04em; }
+  .dateline span + span::before { content: '· '; }
+  .dateline .interactive { color: var(--accent); font-weight: 700; }
   .hero { max-width: 56rem; margin: 0 auto 2.5rem; }
   .tail { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: 1.5rem; font-size: 0.95rem; }
   .tail h2 { margin: 1.25rem 0 0.5rem; }

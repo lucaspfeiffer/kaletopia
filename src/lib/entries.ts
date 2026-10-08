@@ -56,6 +56,16 @@ export function yearsAgo(when: { start: string }, today = new Date()): number {
   return today.getFullYear() - parseWhen(when.start).year;
 }
 
+/** Minutes to read, from the raw body. Floors at one. */
+export function readMinutes(entry: Entry): number {
+  const words = (entry.body ?? '').replace(/^---[\s\S]*?---/, '').replace(/<[^>]+>|import .*$/gm, '').split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 230));
+}
+
+export function formatLongDate(d: Date): string {
+  return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+}
+
 export function formatDate(d: Date): string {
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 }

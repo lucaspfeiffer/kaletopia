@@ -1,63 +1,83 @@
 ---
 import { withBase } from '../lib/url';
-import { formatDate } from '../lib/entries';
+import { formatLongDate } from '../lib/entries';
+import { sections } from '../lib/sections';
 interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
-const today = formatDate(new Date());
+const today = formatLongDate(new Date());
+const path = Astro.url.pathname.replace(/\/$/, '');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const active = (slug: string) => path === `${base}/${slug}`;
 ---
 
 <header class:list={['masthead', { compact }]}>
   <div class="wrap">
-    <div class="top">
-      <span class="label date">{today}</span>
-      <nav class="label">
-        <a href={withBase('entries/')}>All entries</a>
-        <a href={withBase('about/')}>About</a>
-        <a href="https://github.com/lucaspfeiffer/kaletopia">Source</a>
-      </nav>
+    <div class="strip">
+      <a class="edition" href={withBase('entries/')}>All entries</a>
+      <a class="edition" href={withBase('on-this-day/')}>On this day</a>
+      <a class="edition" href={withBase('about/')}>About</a>
+      <a class="edition" href="https://github.com/lucaspfeiffer/kaletopia">Source</a>
     </div>
-    <a class="title" href={withBase('/')}>Kaletopia</a>
-    <p class="tagline">An art project for humanity</p>
+    <div class="plate">
+      <div class="dateline">
+        <span class="date">{today}</span>
+        <a href={withBase('/')}>Today's entries</a>
+      </div>
+      <a class="name" href={withBase('/')}>Kaletopia</a>
+      <div class="dateline right"><span class="tag">An art project for humanity</span></div>
+    </div>
+    <nav class="sections" aria-label="Sections">
+      {sections.map((s) => (
+        <a href={withBase(`${s.slug}/`)} aria-current={active(s.slug) ? 'page' : undefined}>{s.label}</a>
+      ))}
+    </nav>
+    <hr class="rule-double" />
   </div>
-  <hr class="rule-strong" />
 </header>
 
 <style>
-  .masthead { padding-top: 0.75rem; }
-  .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--rule);
+  .masthead { font-family: var(--sans); }
+  .strip {
+    display: flex; justify-content: center; gap: 1.5rem;
+    padding: 0.7rem 0 0.4rem;
+    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2);
   }
-  nav { display: flex; gap: 1.25rem; }
-  nav a { text-decoration: none; }
-  .title {
-    display: block;
-    text-align: center;
-    font-size: clamp(2.6rem, 8vw, 5rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+  .plate {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    padding: 0.4rem 0 0.9rem;
+  }
+  .dateline { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.875rem; color: var(--ink); }
+  .dateline a { color: var(--ink-2); }
+  .dateline.right { align-items: flex-end; }
+  .tag { font-family: var(--serif); font-style: italic; color: var(--ink-2); font-size: 0.875rem; }
+  .name {
+    font-family: var(--blackletter);
+    font-weight: 400;
+    font-size: clamp(3rem, 7vw, 4.75rem);
     line-height: 1;
-    padding: 1.1rem 0 0.2rem;
-    text-decoration: none;
+    letter-spacing: -0.005em;
+    padding: 0.1em 0.4em 0.05em;
     color: var(--ink);
   }
-  .title:hover { color: var(--ink); }
-  .tagline {
-    text-align: center;
-    margin: 0 0 0.9rem;
-    font-style: italic;
-    color: var(--ink-2);
-    font-size: 0.95rem;
+  .name:hover { text-decoration: none; }
+  .sections {
+    display: flex; justify-content: center; gap: clamp(1rem, 3vw, 2.5rem);
+    padding: 0.3rem 0 0.55rem;
+    font-size: 1rem; color: var(--ink);
+    overflow-x: auto; scrollbar-width: none; white-space: nowrap;
   }
-  .compact .title { font-size: clamp(1.8rem, 5vw, 2.4rem); padding: 0.6rem 0 0.6rem; line-height: 1.1; }
-  .compact .tagline { display: none; }
-  .compact .top .date { display: none; }
-  @media (max-width: 40rem) {
-    .top .date { display: none; }
-    .top { justify-content: center; }
+  .sections::-webkit-scrollbar { display: none; }
+  .sections a[aria-current="page"] { font-weight: 700; }
+
+  .compact .plate { padding: 0.2rem 0 0.5rem; }
+  .compact .name { font-size: clamp(2.25rem, 5vw, 3rem); }
+  .compact .dateline .date, .compact .tag { display: none; }
+
+  @media (max-width: 48rem) {
+    .plate { grid-template-columns: 1fr; justify-items: center; gap: 0.3rem; }
+    .dateline { flex-direction: row; gap: 0.75rem; font-size: 0.8125rem; }
+    .dateline.right { display: none; }
+    .sections { justify-content: flex-start; padding-inline: 0.25rem; }
+    .strip { gap: 1rem; }
   }
 </style>
