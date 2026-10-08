@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import EntryCard from '../components/EntryCard.astro';
+import { allEntries, onThisDay, thisMonth, yearsAgo } from '../lib/entries';
+import { withBase } from '../lib/url';
+
+const entries = await allEntries();
+const today = new Date();
+const todays = onThisDay(entries, today);
+const monthly = thisMonth(entries, today);
+const featured = entries.filter((e) => e.data.featured);
+const lead = featured[0] ?? entries[0];
+const latest = entries.filter((e) => e !== lead).slice(0, 6);
+const monthName = today.toLocaleString('en-US', { month: 'long' });
+---
+
+<Base title="Kaletopia">
+  <div class="wrap">
+    <section class="front">
+      <div class="lead">
+        {lead ? <EntryCard entry={lead} size="lead" note="Featured" /> : <p>Nothing here yet.</p>}
+      </div>
+
+      <aside class="side">
+        <h2 class="label">On this day</h2>
+        <hr class="rule" />
+        {todays.length > 0 ? (
+          todays.map((e) => (
+            <EntryCard entry={e} size="small" note={`${yearsAgo(e.data.when!, today)} years ago`} />
+          ))
+        ) : (
+          <p class="empty">Nothing in the archive for today yet. {monthly.length > 0 ? `Below, ${monthName} in other years.` : ''}</p>
+        )}
+        {monthly.length > 0 && (
+          <>
+            <h2 class="label">{monthName}, other years</h2>
+            <hr class="rule" />
+            {monthly.map((e) => (
+              <EntryCard entry={e} size="small" note={`${yearsAgo(e.data.when!, today)} years ago`} />
+            ))}
+          </>
+        )}
+      </aside>
+    </section>
+
+    <section class="latest">
+      <h2 class="label">Latest</h2>
+      <hr class="rule" />
+      {latest.length > 0 ? (
+        <div class="grid">
+          {latest.map((e) => <EntryCard entry={e} />)}
+        </div>
+      ) : (
+        <p class="empty">The first entry is the featured one above. <a href={withBase('about/')}>Help add the next.</a></p>
+      )}
+    </section>
+  </div>
+</Base>
+
+<style>
+  .front {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    padding-top: 1.5rem;
+  }
+  .side { border-left: 1px solid var(--rule); padding-left: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .side h2 { margin-top: 0.25rem; }
+  .side h2 + hr { margin-top: -0.5rem; }
+  .empty { color: var(--ink-3); font-size: 0.95rem; margin: 0; }
+  .latest { margin-top: 3rem; }
+  .latest h2 { margin-bottom: 0.5rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 2rem;
+    padding-top: 1.25rem;
+  }
+  @media (max-width: 48rem) {
+    .front { grid-template-columns: 1fr; gap: 2rem; }
+    .side { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 1.25rem; }
+  }
+</style>

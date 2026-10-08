@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import EntryCard from '../../components/EntryCard.astro';
+import { allEntries } from '../../lib/entries';
+const entries = await allEntries();
+---
+<Base title="All entries" compact>
+  <div class="wrap">
+    <h1>All entries</h1>
+    <p class="count label">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</p>
+    <hr class="rule" />
+    <div class="grid">
+      {entries.map((e) => <EntryCard entry={e} />)}
+    </div>
+  </div>
+</Base>
+<style>
+  h1 { font-size: 2rem; padding-top: 1.5rem; }
+  .count { color: var(--ink-3); margin: 0.25rem 0 0.75rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 2rem; padding-top: 1.5rem; }
+</style>

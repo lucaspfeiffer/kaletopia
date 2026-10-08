@@ -1,0 +1,43 @@
+---
+import type { Entry } from '../lib/entries';
+import { formatWhen } from '../lib/entries';
+import { withBase } from '../lib/url';
+
+interface Props { entry: Entry; size?: 'lead' | 'standard' | 'small'; note?: string }
+const { entry, size = 'standard', note } = Astro.props;
+const { title, summary, kind, when, media, hero } = entry.data;
+const href = withBase(`entries/${entry.id}/`);
+const badges = media.map((m) => (m === 'simulation' ? 'Interactive' : m === 'video' ? 'Video' : 'Images'));
+---
+
+<article class:list={['card', size]}>
+  {hero && size !== 'small' && (
+    <a href={href} class="hero"><img src={hero.src.startsWith('http') ? hero.src : withBase(hero.src)} alt={hero.alt} loading="lazy" /></a>
+  )}
+  <div class="meta label">
+    <span>{kind}</span>
+    {when && <span>· {formatWhen(when)}</span>}
+    {note && <span class="note">· {note}</span>}
+  </div>
+  <h3><a href={href}>{title}</a></h3>
+  <p class="summary">{summary}</p>
+  {badges.length > 0 && (
+    <p class="badges label">{badges.join(' · ')}</p>
+  )}
+</article>
+
+<style>
+  .card { display: flex; flex-direction: column; gap: 0.35rem; }
+  .meta { color: var(--ink-3); }
+  .note { color: var(--accent); }
+  h3 { font-size: 1.25rem; }
+  h3 a { text-decoration: none; }
+  .summary { margin: 0; color: var(--ink-2); font-size: 0.98rem; }
+  .badges { color: var(--accent); margin: 0.2rem 0 0; }
+  .hero { margin-bottom: 0.5rem; }
+  .hero img { aspect-ratio: 3 / 2; object-fit: cover; width: 100%; }
+  .lead h3 { font-size: clamp(1.7rem, 3.5vw, 2.5rem); font-weight: 700; }
+  .lead .summary { font-size: 1.1rem; }
+  .small h3 { font-size: 1.05rem; }
+  .small .summary { font-size: 0.9rem; }
+</style>

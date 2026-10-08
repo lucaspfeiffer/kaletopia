@@ -1,0 +1,144 @@
+---
+/**
+ * The social event market simulation. Drop into an entry with
+ *   import SocialEventMarket from '../../../sims/social-event-market/SocialEventMarket.astro';
+ *   <SocialEventMarket />
+ */
+---
+
+<figure class="sim-frame sem" data-sim="social-event-market">
+  <div class="head">
+    <p class="label">Simulation</p>
+    <h3>A market as an information processor</h3>
+    <p class="lede">One hidden truth. A crowd that believes a story. A few agents with real data. Watch the price find the truth, then add a social layer and see what changes.</p>
+  </div>
+
+  <div class="controls">
+    <div class="group">
+      <span class="label">Social layer</span>
+      <div class="seg" role="group" aria-label="Social layer">
+        <button type="button" data-social="off">Off</button>
+        <button type="button" data-social="open">Anyone posts</button>
+        <button type="button" data-social="positions">Posts need a position</button>
+      </div>
+    </div>
+    <label class="slider">
+      <span class="label">Agents with data <output data-out="informedShare"></output></span>
+      <input type="range" name="informedShare" min="0.05" max="0.5" step="0.05" />
+    </label>
+    <label class="slider">
+      <span class="label">How wrong the crowd is <output data-out="bias"></output></span>
+      <input type="range" name="bias" min="0" max="0.3" step="0.02" />
+    </label>
+    <label class="slider">
+      <span class="label">Trust in what you read <output data-out="trust"></output></span>
+      <input type="range" name="trust" min="0.05" max="0.6" step="0.05" />
+    </label>
+  </div>
+
+  <div class="panels">
+    <div class="panel net-panel">
+      <canvas class="net" aria-label="Agents colored by belief; ringed agents have real data; size shows position"></canvas>
+      <div class="legend caption">
+        <span><i class="sw no"></i> believes NO</span>
+        <span><i class="sw mid"></i> unsure</span>
+        <span><i class="sw yes"></i> believes YES</span>
+        <span><i class="sw ring"></i> has real data</span>
+        <span><i class="sw post"></i> posting</span>
+      </div>
+    </div>
+    <div class="panel side">
+      <canvas class="chart" aria-label="Market price over time against the hidden truth"></canvas>
+      <dl class="stats">
+        <div><dt class="label">Price</dt><dd data-stat="price"></dd></div>
+        <div><dt class="label">Truth</dt><dd data-stat="truth"></dd></div>
+        <div><dt class="label">Off by</dt><dd data-stat="error"></dd></div>
+        <div><dt class="label">Posts</dt><dd data-stat="posts"></dd></div>
+      </dl>
+      <p class="vs caption" data-stat="vs"></p>
+      <ol class="feed" aria-live="off"></ol>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <button type="button" class="play" aria-pressed="false">Play</button>
+    <input type="range" class="scrub" min="0" max="239" value="0" aria-label="Scrub through time" />
+    <span class="tick caption" data-stat="tick"></span>
+    <button type="button" class="reseed">New world</button>
+  </div>
+
+  <noscript><p class="caption">This simulation needs JavaScript. In short: a market alone lands part of the way to the truth, free posting gets closer slowly, and posts that require a position get closest with fewer posts.</p></noscript>
+</figure>
+
+<script>
+  import { mount } from './view';
+  document.querySelectorAll<HTMLElement>('[data-sim="social-event-market"]').forEach((el) => {
+    if (!el.dataset.ready) mount(el);
+  });
+</script>
+
+<style>
+  .sem { font-family: var(--sans); }
+  .head { max-width: var(--measure); margin: 0 auto 1.25rem; text-align: center; }
+  .head h3 { font-family: var(--serif); font-size: 1.5rem; margin: 0.25rem 0 0.5rem; }
+  .head .lede { font-family: var(--serif); color: var(--ink-2); margin: 0; font-size: 1.02rem; }
+
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1rem 1.5rem;
+    align-items: end;
+    padding: 0.75rem 0 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .seg { display: flex; border: 1px solid var(--rule-strong); border-radius: 3px; overflow: hidden; }
+  .seg button {
+    flex: 1; padding: 0.45rem 0.4rem; font: inherit; font-size: 0.78rem; cursor: pointer;
+    background: transparent; color: var(--ink); border: 0; border-right: 1px solid var(--rule-strong);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .slider { display: flex; flex-direction: column; gap: 0.3rem; }
+  .slider .label { display: flex; justify-content: space-between; }
+  .slider output { color: var(--accent); font-variant-numeric: tabular-nums; }
+  input[type="range"] { width: 100%; margin: 0; accent-color: var(--accent); }
+
+  .panels { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1.5rem; padding-top: 1rem; }
+  .panel { min-width: 0; }
+  canvas { width: 100%; }
+  .legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; justify-content: center; margin-top: 0.5rem; }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; vertical-align: -1px; margin-right: 0.3rem; }
+  .sw.no { background: var(--no); } .sw.mid { background: var(--ink-3); } .sw.yes { background: var(--yes); }
+  .sw.ring { background: var(--ink-3); box-shadow: 0 0 0 1.5px var(--ink); }
+  .sw.post { background: transparent; box-shadow: 0 0 0 1.5px var(--accent); }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin: 0.75rem 0 0; }
+  .stats div { border-top: 1px solid var(--rule); padding-top: 0.35rem; }
+  .stats dt { margin: 0; }
+  .stats dd { margin: 0; font-family: var(--serif); font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+  .vs { margin: 0.35rem 0 0; min-height: 1.2em; color: var(--accent); }
+  .feed { list-style: none; padding: 0; margin: 0.75rem 0 0; border-top: 1px solid var(--rule); font-size: 0.8rem; }
+  .feed li { display: flex; flex-wrap: wrap; gap: 0.15rem 0.5rem; padding: 0.4rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+  .feed .who { font-weight: 600; }
+  .feed .meta { color: var(--ink-3); flex: 1; }
+  .feed .says { color: var(--accent); font-variant-numeric: tabular-nums; }
+  .feed .empty { color: var(--ink-3); }
+
+  .timeline { display: flex; align-items: center; gap: 0.75rem; margin-top: 1.25rem; padding-top: 0.75rem; border-top: 1px solid var(--rule); }
+  .timeline .scrub { flex: 1; }
+  .timeline .tick { white-space: nowrap; font-variant-numeric: tabular-nums; min-width: 5rem; text-align: right; margin: 0; }
+  .timeline button {
+    font: inherit; font-size: 0.78rem; font-weight: 600; padding: 0.45rem 0.9rem; cursor: pointer;
+    background: var(--ink); color: var(--paper); border: 1px solid var(--ink); border-radius: 3px;
+  }
+  .timeline button.reseed { background: transparent; color: var(--ink); }
+
+  @media (max-width: 40rem) {
+    .panels { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .timeline { flex-wrap: wrap; }
+    .timeline .scrub { order: -1; flex-basis: 100%; }
+    .timeline .tick { flex: 1; }
+  }
+</style>

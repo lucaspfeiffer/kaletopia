@@ -1,0 +1,63 @@
+---
+import { withBase } from '../lib/url';
+import { formatDate } from '../lib/entries';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const today = formatDate(new Date());
+---
+
+<header class:list={['masthead', { compact }]}>
+  <div class="wrap">
+    <div class="top">
+      <span class="label date">{today}</span>
+      <nav class="label">
+        <a href={withBase('entries/')}>All entries</a>
+        <a href={withBase('about/')}>About</a>
+        <a href="https://github.com/lucaspfeiffer/kaletopia">Source</a>
+      </nav>
+    </div>
+    <a class="title" href={withBase('/')}>Kaletopia</a>
+    <p class="tagline">An art project for humanity</p>
+  </div>
+  <hr class="rule-strong" />
+</header>
+
+<style>
+  .masthead { padding-top: 0.75rem; }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  nav { display: flex; gap: 1.25rem; }
+  nav a { text-decoration: none; }
+  .title {
+    display: block;
+    text-align: center;
+    font-size: clamp(2.6rem, 8vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    padding: 1.1rem 0 0.2rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .title:hover { color: var(--ink); }
+  .tagline {
+    text-align: center;
+    margin: 0 0 0.9rem;
+    font-style: italic;
+    color: var(--ink-2);
+    font-size: 0.95rem;
+  }
+  .compact .title { font-size: clamp(1.8rem, 5vw, 2.4rem); padding: 0.6rem 0 0.1rem; }
+  .compact .tagline { display: none; }
+  .compact .top .date { display: none; }
+  @media (max-width: 40rem) {
+    .top .date { display: none; }
+    .top { justify-content: center; }
+  }
+</style>

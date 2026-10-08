@@ -1,0 +1,51 @@
+---
+title: Social event markets
+kind: concept
+summary: A proposal to put a social layer on top of prediction markets, so that research, argument, and consensus form around positions people have paid for.
+when:
+  start: 2024-12-04
+media: [simulation]
+tags: [markets, information, networks, hayek, prediction-markets]
+related: []
+sources:
+  - title: The Social (Event) Network, rough draft
+    url: https://www.kaletopia.com/p/the-social-event-network-rough-draft
+    author: Lucas Pfeiffer
+    date: December 2024
+  - title: The Use of Knowledge in Society
+    url: https://www.econlib.org/library/Essays/hykKnw.html
+    author: Friedrich Hayek
+    date: 1945
+  - title: Logarithmic market scoring rules for modular combinatorial information aggregation
+    url: https://mason.gmu.edu/~rhanson/mktscore.pdf
+    author: Robin Hanson
+    date: 2002
+published: 2026-10-08
+featured: true
+---
+
+import SocialEventMarket from '../../../sims/social-event-market/SocialEventMarket.astro';
+
+A market is a machine for turning what many people know into one number. Friedrich Hayek made the argument in 1945: the knowledge that matters for allocating resources is scattered across millions of people in small, local, changing pieces, and no planner can gather it. Prices gather it instead. Each person acts on what they know, the price moves, and everyone else learns from the move without ever learning the reason.
+
+An event market applies this to a question with a yes-or-no answer. Will the river flood this spring. Will the law pass. Will the launch happen by June. Traders buy and sell contracts that pay out if the event happens, and the price of the contract becomes a running estimate of the probability. Platforms like Kalshi and Polymarket run these markets today, and in the 2024 United States presidential election their prices moved earlier and landed closer than most polls.
+
+## The proposal
+
+A *social* event market adds a layer of people to the layer of prices. Traders who hold a position can publish research, argument, and data alongside it. Anyone can read, reply, and follow. The design rule that makes it different from a forum is simple: you can post about a market only if you hold a position in it. You are putting your money where your mouth is, and everyone reading can see how much.
+
+Three things are supposed to follow. Posts carry more information, because the people writing them have paid to be right. Readers who never trade still get the information, since most people on any network read far more than they write. And a shared intuition forms, with the price as its summary, that is more honest than a feed of opinions because every opinion has a cost.
+
+## Try it
+
+The simulation below is a toy version of that argument. There is one hidden truth, the real probability of some event. A small share of agents have data that gets them close to it. The rest believe a popular story that is off by a fixed amount. Everyone trades against a market maker, so the price drifts toward a confidence-weighted average of what the crowd believes.
+
+Turn the social layer on and agents start posting what they believe to the agents who follow them. With *anyone posts*, every post counts the same and, with nothing at stake, what people say drifts a little from what they think. With *posts need a position*, only agents holding a position can post, and readers weight each post by the size of the stake behind it. Agents with real data hold their ground either way.
+
+<SocialEventMarket />
+
+A few things to try. Set the social layer off and watch where the price settles: the market alone recovers part of the crowd's error but not all of it, because the crowd outnumbers the agents with data. Switch to *anyone posts* and the price creeps closer, slowly, through a lot of posts. Switch to *posts need a position* and it gets closer still with about half as many posts, because the posts that move people are the ones with money behind them. Then raise *how wrong the crowd is*, or cut the share of agents with data to five percent, and see how far each version can be pushed before it fails.
+
+## What the toy leaves out
+
+Real markets have budgets, fees, manipulation, and people who are confidently wrong with large positions. The model has none of these. Agents here never run out of money, never lie about a position, and never resolve the event, so nobody is ever paid for being right. The point of the simulation is narrower: to show the mechanism the proposal depends on, that tying speech to a stake changes which speech people weigh, and to let you feel how much it matters as the crowd gets louder or the informed get rarer.

@@ -1,0 +1,17 @@
+---
+import { withBase } from '../lib/url';
+---
+<footer>
+  <div class="wrap">
+    <hr class="rule-strong" />
+    <p>
+      Kaletopia is open: the writing is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>,
+      the code is MIT, and both live on <a href="https://github.com/lucaspfeiffer/kaletopia">GitHub</a>.
+      Not for profit, ever. <a href={withBase('about/')}>About</a>.
+    </p>
+  </div>
+</footer>
+<style>
+  footer { margin-top: 4rem; padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)); }
+  p { font-family: var(--sans); font-size: 0.8rem; color: var(--ink-3); margin: 1rem 0 0; }
+</style>

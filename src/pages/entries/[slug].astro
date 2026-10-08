@@ -1,0 +1,93 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { allEntries, formatWhen, formatDate } from '../../lib/entries';
+import { withBase } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const entries = await allEntries();
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const related = await Promise.all(
+  d.related.map(async (r) => ({ relation: r.relation, target: await getEntry(r.entry) })),
+);
+---
+
+<Base title={d.title} description={d.summary} compact>
+  <article class="wrap entry">
+    <header class="head">
+      <p class="label kicker">
+        <span>{d.kind}</span>
+        {d.when && <span> · {formatWhen(d.when)}</span>}
+      </p>
+      <h1>{d.title}</h1>
+      <p class="deck">{d.summary}</p>
+      <p class="byline label">
+        By {d.authors.join(', ')} · Published {formatDate(d.published)}{d.updated && ` · Updated ${formatDate(d.updated)}`}
+      </p>
+    </header>
+
+    {d.hero && (
+      <figure class="hero">
+        <img src={d.hero.src.startsWith('http') ? d.hero.src : withBase(d.hero.src)} alt={d.hero.alt} />
+        {(d.hero.credit || d.hero.license) && (
+          <figcaption class="caption">{d.hero.credit}{d.hero.license && ` · ${d.hero.license}`}</figcaption>
+        )}
+      </figure>
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <footer class="tail prose">
+      {related.length > 0 && (
+        <section>
+          <h2 class="label">Related</h2>
+          <ul class="plain">
+            {related.map(({ relation, target }) => target && (
+              <li><span class="rel">{relation}</span> <a href={withBase(`entries/${target.id}/`)}>{target.data.title}</a></li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {d.sources.length > 0 && (
+        <section>
+          <h2 class="label">Sources</h2>
+          <ol class="sources">
+            {d.sources.map((s) => (
+              <li>
+                {s.url ? <a href={s.url}>{s.title}</a> : s.title}
+                {s.author && `, ${s.author}`}{s.date && `, ${s.date}`}{s.license && ` (${s.license})`}
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+      <p class="license caption">
+        This entry is licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">{d.license}</a>.
+        <a href={`https://github.com/lucaspfeiffer/kaletopia/tree/main/src/content/entries/${entry.id}`}>Edit on GitHub</a>.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .entry { padding-top: 2rem; }
+  .head { max-width: var(--measure); margin-inline: auto; text-align: center; }
+  .kicker { color: var(--ink-3); margin: 0 0 0.75rem; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; }
+  .deck { font-size: 1.2rem; color: var(--ink-2); margin: 1rem 0 0.75rem; line-height: 1.45; }
+  .byline { color: var(--ink-3); margin: 0 0 2rem; }
+  .hero { max-width: 56rem; margin: 0 auto 2.5rem; }
+  .tail { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: 1.5rem; font-size: 0.95rem; }
+  .tail h2 { margin: 1.25rem 0 0.5rem; }
+  .plain { list-style: none; padding: 0; }
+  .rel { color: var(--ink-3); font-style: italic; }
+  .sources { padding-left: 1.25rem; color: var(--ink-2); }
+  .license { margin-top: 2rem; }
+</style>
