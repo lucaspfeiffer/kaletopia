@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *' # daily, so the front page's date and "on this day" stay current
 
 permissions:
   contents: read

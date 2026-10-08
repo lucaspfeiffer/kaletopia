@@ -16,8 +16,8 @@ const badges = media.map((m) => (m === 'simulation' ? 'Interactive' : m === 'vid
   )}
   <div class="meta label">
     <span>{kind}</span>
-    {when && <span>· {formatWhen(when)}</span>}
-    {note && <span class="note">· {note}</span>}
+    {when && <span>{formatWhen(when)}</span>}
+    {note && <span class="note">{note}</span>}
   </div>
   <h3><a href={href}>{title}</a></h3>
   <p class="summary">{summary}</p>
@@ -28,7 +28,8 @@ const badges = media.map((m) => (m === 'simulation' ? 'Interactive' : m === 'vid
 
 <style>
   .card { display: flex; flex-direction: column; gap: 0.35rem; }
-  .meta { color: var(--ink-3); }
+  .meta { color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .meta span + span::before { content: '· '; color: var(--ink-3); }
   .note { color: var(--accent); }
   h3 { font-size: 1.25rem; }
   h3 a { text-decoration: none; }
