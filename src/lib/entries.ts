@@ -69,3 +69,11 @@ export function formatLongDate(d: Date): string {
 export function formatDate(d: Date): string {
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 }
+
+export function allTags(entries: Entry[]): { tag: string; count: number }[] {
+  const counts = new Map<string, number>();
+  for (const e of entries) for (const t of e.data.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+  return [...counts].map(([tag, count]) => ({ tag, count })).sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+}
+
+export const tagLabel = (tag: string) => tag.replace(/-/g, ' ');

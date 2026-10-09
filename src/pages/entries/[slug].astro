@@ -1,7 +1,7 @@
 ---
 import { getEntry, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { allEntries, formatWhen, formatDate, readMinutes } from '../../lib/entries';
+import { allEntries, formatWhen, formatDate, readMinutes, tagLabel } from '../../lib/entries';
 import { sectionForKind } from '../../lib/sections';
 import { withBase } from '../../lib/url';
 
@@ -15,6 +15,7 @@ const { Content } = await render(entry);
 const d = entry.data;
 const section = sectionForKind(d.kind);
 const minutes = readMinutes(entry);
+const byline = d.contributors.length === 1 ? d.contributors[0] : `${d.contributors.slice(0, -1).join(', ')} and ${d.contributors.at(-1)}`;
 const related = await Promise.all(
   d.related.map(async (r) => ({ relation: r.relation, target: await getEntry(r.entry) })),
 );
@@ -29,7 +30,7 @@ const related = await Promise.all(
       </p>
       <h1>{d.title}</h1>
       <p class="deck">{d.summary}</p>
-      <p class="byline">By {d.authors.join(', ')}</p>
+      <p class="byline">By {byline}</p>
       <p class="dateline label">
         <span>{formatDate(d.published)}</span>
         {d.updated && <span>Updated {formatDate(d.updated)}</span>}
@@ -52,6 +53,14 @@ const related = await Promise.all(
     </div>
 
     <footer class="tail prose">
+      {d.tags.length > 0 && (
+        <section>
+          <h2 class="label">Tags</h2>
+          <ul class="tags">
+            {d.tags.map((t) => <li><a href={withBase(`tags/${t}/`)}>{tagLabel(t)}</a></li>)}
+          </ul>
+        </section>
+      )}
       {related.length > 0 && (
         <section>
           <h2 class="label">Related</h2>
@@ -75,6 +84,7 @@ const related = await Promise.all(
           </ol>
         </section>
       )}
+      <p class="caption contributors">Contributors: {d.contributors.join(', ')}.</p>
       <p class="license caption">
         This entry is licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">{d.license}</a>.
         <a href={`https://github.com/lucaspfeiffer/kaletopia/tree/main/src/content/entries/${entry.id}`}>Edit on GitHub</a>.
@@ -99,6 +109,10 @@ const related = await Promise.all(
   .tail { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: 1.5rem; font-size: 0.95rem; }
   .tail h2 { margin: 1.25rem 0 0.5rem; }
   .plain { list-style: none; padding: 0; }
+  .tags { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tags a { font-family: var(--sans); font-size: 0.75rem; font-weight: 600; border: 1px solid var(--rule); padding: 0.25rem 0.6rem; border-radius: 2px; }
+  .tags a:hover { border-color: var(--ink); text-decoration: none; }
+  .contributors { margin-top: 2rem; }
   .rel { color: var(--ink-3); font-style: italic; }
   .sources { padding-left: 1.25rem; color: var(--ink-2); }
   .license { margin-top: 2rem; }

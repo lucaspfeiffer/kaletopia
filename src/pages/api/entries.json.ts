@@ -25,7 +25,7 @@ export const GET: APIRoute = async ({ site }) => {
       related: e.data.related.map((r) => ({ slug: r.entry.id, relation: r.relation })),
       sources: e.data.sources,
       hero: e.data.hero ?? null,
-      authors: e.data.authors,
+      contributors: e.data.contributors,
       published: e.data.published.toISOString(),
       updated: e.data.updated?.toISOString() ?? null,
       featured: e.data.featured,

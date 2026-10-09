@@ -39,7 +39,8 @@ const entries = defineCollection({
       .optional(),
     /** What the entry carries beyond text. Lets readers and the app filter. */
     media: z.array(z.enum(mediaKinds)).default([]),
-    tags: z.array(z.string()).default([]),
+    /** Lowercase, hyphenated. Tag pages are generated for each. */
+    tags: z.array(z.string().regex(/^[a-z0-9][a-z0-9-]*$/, 'lowercase-with-hyphens')).default([]),
     related: z
       .array(
         z.object({
@@ -68,7 +69,8 @@ const entries = defineCollection({
         license: z.string().optional(),
       })
       .optional(),
-    authors: z.array(z.string()).default(['Lucas Pfeiffer']),
+    /** Everyone who worked on the entry, in order. Claude is listed when it helped write. */
+    contributors: z.array(z.string()).min(1).default(['Lucas Pfeiffer']),
     published: z.coerce.date(),
     updated: z.coerce.date().optional(),
     featured: z.boolean().default(false),

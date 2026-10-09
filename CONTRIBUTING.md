@@ -14,6 +14,11 @@ welcome, and they are edited.
 - **Curated, not comprehensive.** Say the few things that matter and link
   onward. Wikipedia already exists.
 - **Sourced.** Every claim a reader might doubt gets a source in frontmatter.
+- **Tagged.** Every entry carries tags, lowercase with hyphens. Reuse existing
+  tags before inventing one; the tag pages are how readers find related
+  entries.
+- **Credited.** `contributors` lists everyone who worked on the entry, in
+  order. Add yourself. When Claude helped write, it is listed too.
 - **Open.** Text you write is CC BY-SA 4.0. Media you add must carry a license
   that allows redistribution, recorded in frontmatter or a sidecar file.
 
