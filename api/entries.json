@@ -1,0 +1,450 @@
+{
+  "name": "Kaletopia",
+  "generated": "2026-10-09T05:19:29.398Z",
+  "license": {
+    "content": "CC-BY-SA-4.0",
+    "code": "MIT"
+  },
+  "entries": [
+    {
+      "slug": "dawn-and-dusk-2026-summer-update",
+      "path": "entries/dawn-and-dusk-2026-summer-update/",
+      "title": "Dawn and Dusk gets its 2026 Summer Update",
+      "kind": "event",
+      "summary": "A year of feedback became version 1.1, with a sunrise alarm, streaks, a community gallery, a compass for the sun, and charts that read like a weather flip book.",
+      "when": {
+        "start": "2026-05-25"
+      },
+      "media": [
+        "image"
+      ],
+      "tags": [
+        "tools-a-cowboy-would-use",
+        "dawn-and-dusk",
+        "apps",
+        "ios",
+        "sun"
+      ],
+      "related": [
+        {
+          "entry": "dawn-and-dusk-launch",
+          "relation": "updates the app from"
+        },
+        {
+          "entry": "dawnanddusk-earth",
+          "relation": "shares a community gallery with"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Dawn and Dusk 2026 Summer Update",
+          "url": "https://blog.toolsacowboywoulduse.com/p/dawn-and-dusk-2026-summer-update",
+          "author": "Tools a Cowboy Would Use",
+          "date": "June 11, 2026"
+        },
+        {
+          "title": "Summer 2026 release page",
+          "url": "https://toolsacowboywoulduse.com/dawnanddusk/summer-2026/",
+          "author": "Tools a Cowboy Would Use"
+        },
+        {
+          "title": "Dawn and Dusk version history on the App Store",
+          "url": "https://apps.apple.com/us/app/dawn-and-dusk/id6736839971",
+          "author": "Apple"
+        }
+      ],
+      "hero": {
+        "src": "entries/dawn-and-dusk-2026-summer-update/hero.jpg",
+        "alt": "Dawn and Dusk running on an iPhone, held up against the sky",
+        "credit": "Tools a Cowboy Would Use"
+      },
+      "contributors": [
+        "Lucas Pfeiffer",
+        "Claude"
+      ],
+      "published": "2026-10-08",
+      "updated": null,
+      "featured": false,
+      "license": "CC-BY-SA-4.0",
+      "minutes": 1
+    },
+    {
+      "slug": "open-sdk",
+      "path": "entries/open-sdk/",
+      "title": "Open SDK",
+      "kind": "work",
+      "summary": "A software development kit from the restaurant technology company Open that gives every restaurant a codebase of its own, built by coding agents on a shared foundation.",
+      "when": {
+        "start": "2026-05"
+      },
+      "media": [
+        "image"
+      ],
+      "tags": [
+        "open",
+        "open-sdk",
+        "restaurants",
+        "coding-agents",
+        "software"
+      ],
+      "related": [],
+      "sources": [
+        {
+          "title": "Open SDK",
+          "url": "https://lucaspfeiffer.earth/open-sdk/",
+          "author": "The design and engineering team at Open",
+          "date": "May 2026"
+        },
+        {
+          "title": "Open",
+          "url": "https://getopen.com"
+        }
+      ],
+      "hero": {
+        "src": "entries/open-sdk/hero.jpg",
+        "alt": "A restaurant ordering experience built on the Open SDK, shown on a phone",
+        "credit": "Wake and Late, Los Angeles, built on the SDK. Open."
+      },
+      "contributors": [
+        "Lucas Pfeiffer",
+        "Claude"
+      ],
+      "published": "2026-10-08",
+      "updated": null,
+      "featured": false,
+      "license": "CC-BY-SA-4.0",
+      "minutes": 2
+    },
+    {
+      "slug": "social-event-markets",
+      "path": "entries/social-event-markets/",
+      "title": "Social event markets",
+      "kind": "concept",
+      "summary": "A proposal to put a social layer on top of prediction markets, so that research, argument, and consensus form around positions people have paid for.",
+      "when": {
+        "start": "2024-12-04"
+      },
+      "media": [
+        "simulation"
+      ],
+      "tags": [
+        "kaletopia",
+        "markets",
+        "prediction-markets",
+        "networks",
+        "hayek"
+      ],
+      "related": [],
+      "sources": [
+        {
+          "title": "The Social (Event) Network, rough draft",
+          "url": "https://www.kaletopia.com/p/the-social-event-network-rough-draft",
+          "author": "Lucas Pfeiffer",
+          "date": "December 2024"
+        },
+        {
+          "title": "The Use of Knowledge in Society",
+          "url": "https://www.econlib.org/library/Essays/hykKnw.html",
+          "author": "Friedrich Hayek",
+          "date": "1945"
+        },
+        {
+          "title": "Logarithmic market scoring rules for modular combinatorial information aggregation",
+          "url": "https://mason.gmu.edu/~rhanson/mktscore.pdf",
+          "author": "Robin Hanson",
+          "date": "2002"
+        }
+      ],
+      "hero": null,
+      "contributors": [
+        "Lucas Pfeiffer",
+        "Claude"
+      ],
+      "published": "2026-10-08",
+      "updated": null,
+      "featured": true,
+      "license": "CC-BY-SA-4.0",
+      "minutes": 3
+    },
+    {
+      "slug": "ask-my-tailor",
+      "path": "entries/ask-my-tailor/",
+      "title": "Tools a Cowboy Would Use announces Ask my Tailor",
+      "kind": "event",
+      "summary": "An iPhone app, promised for 2027, to help people take their own measurements so clothing can be made to order for them rather than bought off a rack.",
+      "when": {
+        "start": "2027"
+      },
+      "media": [
+        "image"
+      ],
+      "tags": [
+        "tools-a-cowboy-would-use",
+        "apps",
+        "ios",
+        "clothing"
+      ],
+      "related": [
+        {
+          "entry": "2027-spring-collection",
+          "relation": "will fit the clothes of"
+        },
+        {
+          "entry": "dawn-and-dusk-launch",
+          "relation": "is the second app after"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Tools a Cowboy Would Use, homepage",
+          "url": "https://toolsacowboywoulduse.com/",
+          "author": "Tools a Cowboy Would Use",
+          "date": "as of October 8, 2026"
+        }
+      ],
+      "hero": {
+        "src": "entries/ask-my-tailor/icon.png",
+        "alt": "The Ask my Tailor app icon",
+        "credit": "Tools a Cowboy Would Use"
+      },
+      "contributors": [
+        "Lucas Pfeiffer",
+        "Claude"
+      ],
+      "published": "2026-10-08",
+      "updated": null,
+      "featured": false,
+      "license": "CC-BY-SA-4.0",
+      "minutes": 1
+    },
+    {
+      "slug": "2027-spring-collection",
+      "path": "entries/2027-spring-collection/",
+      "title": "Tools a Cowboy Would Use announces the 2027 Spring Collection",
+      "kind": "event",
+      "summary": "Canvas pants and twill pants, custom fitted and made to order, announced as the brand's first move from shirts into clothing that is built to last.",
+      "when": {
+        "start": "2027-03"
+      },
+      "media": [
+        "image"
+      ],
+      "tags": [
+        "tools-a-cowboy-would-use",
+        "clothing",
+        "collections"
+      ],
+      "related": [
+        {
+          "entry": "2026-summer-collection",
+          "relation": "follows"
+        },
+        {
+          "entry": "ask-my-tailor",
+          "relation": "will be fitted with"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Tools a Cowboy Would Use, homepage",
+          "url": "https://toolsacowboywoulduse.com/",
+          "author": "Tools a Cowboy Would Use",
+          "date": "as of October 8, 2026"
+        }
+      ],
+      "hero": {
+        "src": "entries/2027-spring-collection/hero.jpg",
+        "alt": "The Tools a Cowboy Would Use homepage, with its hand-drawn vegetables and the line making tools people love",
+        "credit": "toolsacowboywoulduse.com"
+      },
+      "contributors": [
+        "Lucas Pfeiffer",
+        "Claude"
+      ],
+      "published": "2026-10-08",
+      "updated": null,
+      "featured": false,
+      "license": "CC-BY-SA-4.0",
+      "minutes": 1
+    },
+    {
+      "slug": "dawn-and-dusk-launch",
+      "path": "entries/dawn-and-dusk-launch/",
+      "title": "Tools a Cowboy Would Use launches Dawn and Dusk",
+      "kind": "event",
+      "summary": "An iPhone app for sunrise and sunset, with two notifications a day and nothing collected, became the first product of an art project that makes apps the way a clothing brand makes accessories.",
+      "when": {
+        "start": "2025-02-24"
+      },
+      "media": [
+        "image"
+      ],
+      "tags": [
+        "tools-a-cowboy-would-use",
+        "dawn-and-dusk",
+        "apps",
+        "ios",
+        "sun"
+      ],
+      "related": [
+        {
+          "entry": "dawn-and-dusk-2026-summer-update",
+          "relation": "was followed by"
+        },
+        {
+          "entry": "dawnanddusk-earth",
+          "relation": "later got a web companion,"
+        },
+        {
+          "entry": "2026-summer-collection",
+          "relation": "was celebrated by"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Dawn and Dusk on the App Store",
+          "url": "https://apps.apple.com/us/app/dawn-and-dusk/id6736839971",
+          "author": "Apple"
+        },
+        {
+          "title": "Dawn and Dusk product page",
+          "url": "https://toolsacowboywoulduse.com/dawnanddusk/",
+          "author": "Tools a Cowboy Would Use"
+        },
+        {
+          "title": "Dawn and Dusk privacy policy",
+          "url": "https://toolsacowboywoulduse.com/dawnanddusk/privacypolicy/",
+          "author": "Tools a Cowboy Would Use"
+        },
+        {
+          "title": "Projects timeline",
+          "url": "https://lucaspfeiffer.earth/projects.html",
+          "author": "Lucas Pfeiffer"
+        }
+      ],
+      "hero": {
+        "src": "entries/dawn-and-dusk-launch/hero.jpg",
+        "alt": "Dawn and Dusk on an iPhone, a countdown to sunset beside the lock-screen widget over a San Francisco sunset",
+        "credit": "Tools a Cowboy Would Use"
+      },
+      "contributors": [
+        "Lucas Pfeiffer",
+        "Claude"
+      ],
+      "published": "2026-10-08",
+      "updated": null,
+      "featured": false,
+      "license": "CC-BY-SA-4.0",
+      "minutes": 1
+    },
+    {
+      "slug": "dawnanddusk-earth",
+      "path": "entries/dawnanddusk-earth/",
+      "title": "Tools a Cowboy Would Use launches dawnanddusk.earth",
+      "kind": "event",
+      "summary": "A web companion to the iPhone app, where anyone can search a place on a map and see when the sun rises and sets, with a public gallery of other people's mornings and evenings.",
+      "when": {
+        "start": "2026-01-15"
+      },
+      "media": [],
+      "tags": [
+        "tools-a-cowboy-would-use",
+        "dawn-and-dusk",
+        "web",
+        "sun"
+      ],
+      "related": [
+        {
+          "entry": "dawn-and-dusk-launch",
+          "relation": "extends to the web"
+        },
+        {
+          "entry": "dawn-and-dusk-2026-summer-update",
+          "relation": "hosts the gallery introduced in"
+        }
+      ],
+      "sources": [
+        {
+          "title": "dawnanddusk.earth",
+          "url": "https://dawnanddusk.earth/",
+          "author": "Tools a Cowboy Would Use"
+        },
+        {
+          "title": "Certificate transparency log for dawnanddusk.earth",
+          "url": "https://crt.sh/?q=dawnanddusk.earth"
+        },
+        {
+          "title": "lucaspfeiffer.earth, commit \"dawn and dusk dot earth\"",
+          "url": "https://github.com/lucaspfeiffer/lucaspfeiffer.earth",
+          "author": "Lucas Pfeiffer",
+          "date": "January 15, 2026"
+        }
+      ],
+      "hero": null,
+      "contributors": [
+        "Lucas Pfeiffer",
+        "Claude"
+      ],
+      "published": "2026-10-08",
+      "updated": null,
+      "featured": false,
+      "license": "CC-BY-SA-4.0",
+      "minutes": 1
+    },
+    {
+      "slug": "2026-summer-collection",
+      "path": "entries/2026-summer-collection/",
+      "title": "Tools a Cowboy Would Use launches the 2026 Summer Collection",
+      "kind": "event",
+      "summary": "A limited run of made-to-order shirts, each hand embroidered with hand-drawn artwork and a patch for when it was made, that raised Dawn and Dusk \"into a category of legendary tools.\"",
+      "when": {
+        "start": "2026-05"
+      },
+      "media": [
+        "image"
+      ],
+      "tags": [
+        "tools-a-cowboy-would-use",
+        "clothing",
+        "collections",
+        "dawn-and-dusk"
+      ],
+      "related": [
+        {
+          "entry": "dawn-and-dusk-launch",
+          "relation": "celebrates"
+        },
+        {
+          "entry": "2027-spring-collection",
+          "relation": "was followed by"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Tools a Cowboy Would Use, homepage and store",
+          "url": "https://toolsacowboywoulduse.com/?view=store",
+          "author": "Tools a Cowboy Would Use"
+        },
+        {
+          "title": "Projects timeline",
+          "url": "https://lucaspfeiffer.earth/projects.html",
+          "author": "Lucas Pfeiffer"
+        }
+      ],
+      "hero": {
+        "src": "entries/2026-summer-collection/hero.jpg",
+        "alt": "Shirts from the 2026 Summer Collection with hand-embroidered artwork",
+        "credit": "Tools a Cowboy Would Use"
+      },
+      "contributors": [
+        "Lucas Pfeiffer",
+        "Claude"
+      ],
+      "published": "2026-10-08",
+      "updated": null,
+      "featured": false,
+      "license": "CC-BY-SA-4.0",
+      "minutes": 1
+    }
+  ]
+}

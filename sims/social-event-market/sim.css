@@ -1,0 +1,46 @@
+/* Social event market simulation. Expects the markup in the entry that uses it. */
+.sem { font-family: var(--sans); }
+.sem .head { max-width: var(--measure); margin: 0 auto 1.25rem; text-align: center; }
+.sem .head h3 { font-family: var(--serif); font-size: 1.5rem; margin: 0.25rem 0 0.5rem; }
+.sem .head .lede { font-family: var(--serif); color: var(--ink-2); margin: 0; font-size: 1.02rem; }
+.sem .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem 1.5rem; align-items: end; padding: 0.75rem 0 1rem; border-bottom: 1px solid var(--rule); }
+.sem .group { display: flex; flex-direction: column; gap: 0.4rem; }
+.sem .seg { display: flex; border: 1px solid var(--rule-strong); border-radius: 3px; overflow: hidden; }
+.sem .seg button { flex: 1; padding: 0.45rem 0.4rem; font: inherit; font-size: 0.78rem; cursor: pointer; background: transparent; color: var(--ink); border: 0; border-right: 1px solid var(--rule-strong); }
+.sem .seg button:last-child { border-right: 0; }
+.sem .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.sem .slider { display: flex; flex-direction: column; gap: 0.3rem; }
+.sem .slider .label { display: flex; justify-content: space-between; }
+.sem .slider output { color: var(--accent); font-variant-numeric: tabular-nums; }
+.sem input[type="range"] { width: 100%; margin: 0; accent-color: var(--accent); }
+.sem .panels { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1.5rem; padding-top: 1rem; }
+.sem .panel { min-width: 0; }
+.sem canvas { width: 100%; }
+.sem .legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; justify-content: center; margin-top: 0.5rem; }
+.sem .sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; vertical-align: -1px; margin-right: 0.3rem; }
+.sem .sw.no { background: var(--no); } .sem .sw.mid { background: var(--ink-3); } .sem .sw.yes { background: var(--yes); }
+.sem .sw.ring { background: var(--ink-3); box-shadow: 0 0 0 1.5px var(--ink); }
+.sem .sw.post { background: transparent; box-shadow: 0 0 0 1.5px var(--accent); }
+.sem .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin: 0.75rem 0 0; }
+.sem .stats div { border-top: 1px solid var(--rule); padding-top: 0.35rem; }
+.sem .stats dt { margin: 0; }
+.sem .stats dd { margin: 0; font-family: var(--serif); font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+.sem .vs { margin: 0.35rem 0 0; min-height: 1.2em; color: var(--accent); }
+.sem .feed { list-style: none; padding: 0; margin: 0.75rem 0 0; border-top: 1px solid var(--rule); font-size: 0.8rem; }
+.sem .feed li { display: flex; flex-wrap: wrap; gap: 0.15rem 0.5rem; padding: 0.4rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.sem .feed .who { font-weight: 600; }
+.sem .feed .meta { color: var(--ink-3); flex: 1; }
+.sem .feed .says { color: var(--accent); font-variant-numeric: tabular-nums; }
+.sem .feed .empty { color: var(--ink-3); }
+.sem .timeline { display: flex; align-items: center; gap: 0.75rem; margin-top: 1.25rem; padding-top: 0.75rem; border-top: 1px solid var(--rule); }
+.sem .timeline .scrub { flex: 1; }
+.sem .timeline .tick { white-space: nowrap; font-variant-numeric: tabular-nums; min-width: 5rem; text-align: right; margin: 0; }
+.sem .timeline button { font: inherit; font-size: 0.78rem; font-weight: 600; padding: 0.45rem 0.9rem; cursor: pointer; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); border-radius: 3px; }
+.sem .timeline button.reseed { background: transparent; color: var(--ink); }
+@media (max-width: 40rem) {
+  .sem .panels { grid-template-columns: 1fr; }
+  .sem .stats { grid-template-columns: repeat(2, 1fr); }
+  .sem .timeline { flex-wrap: wrap; }
+  .sem .timeline .scrub { order: -1; flex-basis: 100%; }
+  .sem .timeline .tick { flex: 1; }
+}

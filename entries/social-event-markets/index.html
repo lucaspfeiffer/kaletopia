@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Social event markets · Kaletopia</title>
+<meta name="description" content="A proposal to put a social layer on top of prediction markets, so that research, argument, and consensus form around positions people have paid for.">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<script src="../../assets/js/site.js" defer></script>
+<link rel="stylesheet" href="../../sims/social-event-market/sim.css">
+<script type="module">
+  import { mount } from "../../sims/social-event-market/view.js";
+  document.querySelectorAll("[data-sim=\"social-event-market\"]").forEach((el) => { if (!el.dataset.ready) mount(el); });
+</script>
+<script type="application/json" id="entry-meta">
+{
+  "title": "Social event markets",
+  "kind": "concept",
+  "summary": "A proposal to put a social layer on top of prediction markets, so that research, argument, and consensus form around positions people have paid for.",
+  "when": { "start": "2024-12-04" },
+  "media": ["simulation"],
+  "tags": ["kaletopia", "markets", "prediction-markets", "networks", "hayek"],
+  "contributors": ["Lucas Pfeiffer", "Claude"],
+  "related": [],
+  "sources": [
+    { "title": "The Social (Event) Network, rough draft", "url": "https://www.kaletopia.com/p/the-social-event-network-rough-draft", "author": "Lucas Pfeiffer", "date": "December 2024" },
+    { "title": "The Use of Knowledge in Society", "url": "https://www.econlib.org/library/Essays/hykKnw.html", "author": "Friedrich Hayek", "date": "1945" },
+    { "title": "Logarithmic market scoring rules for modular combinatorial information aggregation", "url": "https://mason.gmu.edu/~rhanson/mktscore.pdf", "author": "Robin Hanson", "date": "2002" }
+  ],
+  "published": "2026-10-08",
+  "featured": true
+}
+</script>
+</head>
+<body>
+<!-- masthead -->
+<header class="masthead compact">
+  <div class="wrap">
+    <div class="strip">
+      <a href="../../entries/">All entries</a>
+      <a href="../../on-this-day/">On this day</a>
+      <a href="../../tags/">Tags</a>
+      <a href="../../about/">About</a>
+      <a href="https://github.com/lucaspfeiffer/kaletopia">Source</a>
+    </div>
+    <div class="plate">
+      <div class="dateline"><span class="date" data-today>Thursday, October 8, 2026</span><a href="../../">Today's entries</a></div>
+      <a class="name" href="../../">Kaletopia</a>
+      <div class="dateline right"><span class="tag">An art project for humanity</span></div>
+    </div>
+    <nav class="sections" aria-label="Sections">
+      <a href="../../events/">Events</a>
+      <a href="../../people/">People</a>
+      <a href="../../places/">Places</a>
+      <a href="../../ideas/" aria-current="page">Ideas</a>
+      <a href="../../works/">Works</a>
+      <a href="../../organizations/">Organizations</a>
+    </nav>
+    <hr class="rule-double">
+  </div>
+</header>
+<!-- /masthead -->
+<main>
+<article class="wrap entry">
+<!-- entry-head -->
+<header class="head">
+  <p class="topline label"><a href="../../ideas/">Ideas</a><span>December 4, 2024</span></p>
+  <h1>Social event markets</h1>
+  <p class="deck">A proposal to put a social layer on top of prediction markets, so that research, argument, and consensus form around positions people have paid for.</p>
+  <p class="byline">By Lucas Pfeiffer and Claude</p>
+  <p class="dateline label"><span>October 8, 2026</span><span>3 min read</span><span class="interactive">Interactive</span></p>
+</header>
+
+<!-- /entry-head -->
+<div class="prose">
+<p>A market is a machine for turning what many people know into one number. Friedrich Hayek made the argument in 1945: the knowledge that matters for allocating resources is scattered across millions of people in small, local, changing pieces, and no planner can gather it. Prices gather it instead. Each person acts on what they know, the price moves, and everyone else learns from the move without ever learning the reason.</p>
+<p>An event market applies this to a question with a yes-or-no answer. Will the river flood this spring. Will the law pass. Will the launch happen by June. Traders buy and sell contracts that pay out if the event happens, and the price of the contract becomes a running estimate of the probability. Platforms like Kalshi and Polymarket run these markets today, and in the 2024 United States presidential election their prices moved earlier and landed closer than most polls.</p>
+<h2>The proposal</h2>
+<p>A <em>social</em> event market adds a layer of people to the layer of prices. Traders who hold a position can publish research, argument, and data alongside it. Anyone can read, reply, and follow. The design rule that makes it different from a forum is simple: you can post about a market only if you hold a position in it. You are putting your money where your mouth is, and everyone reading can see how much.</p>
+<p>Three things are supposed to follow. Posts carry more information, because the people writing them have paid to be right. Readers who never trade still get the information, since most people on any network read far more than they write. And a shared intuition forms, with the price as its summary, that is more honest than a feed of opinions because every opinion has a cost.</p>
+<h2>Try it</h2>
+<p>The simulation below is a toy version of that argument. There is one hidden truth, the real probability of some event. A small share of agents have data that gets them close to it. The rest believe a popular story that is off by a fixed amount. Everyone trades against a market maker, so the price drifts toward a confidence-weighted average of what the crowd believes.</p>
+<p>Turn the social layer on and agents start posting what they believe to the agents who follow them. With <em>anyone posts</em>, every post counts the same and, with nothing at stake, what people say drifts a little from what they think. With <em>posts need a position</em>, only agents holding a position can post, and readers weight each post by the size of the stake behind it. Agents with real data hold their ground either way.</p>
+
+<figure class="sim-frame sem" data-sim="social-event-market">
+  <div class="head">
+    <p class="label">Simulation</p>
+    <h3>A market as an information processor</h3>
+    <p class="lede">One hidden truth. A crowd that believes a story. A few agents with real data. Watch the price find the truth, then add a social layer and see what changes.</p>
+  </div>
+  <div class="controls">
+    <div class="group">
+      <span class="label">Social layer</span>
+      <div class="seg" role="group" aria-label="Social layer">
+        <button type="button" data-social="off">Off</button>
+        <button type="button" data-social="open">Anyone posts</button>
+        <button type="button" data-social="positions">Posts need a position</button>
+      </div>
+    </div>
+    <label class="slider"><span class="label">Agents with data <output data-out="informedShare"></output></span><input type="range" name="informedShare" min="0.05" max="0.5" step="0.05"></label>
+    <label class="slider"><span class="label">How wrong the crowd is <output data-out="bias"></output></span><input type="range" name="bias" min="0" max="0.3" step="0.02"></label>
+    <label class="slider"><span class="label">Trust in what you read <output data-out="trust"></output></span><input type="range" name="trust" min="0.05" max="0.6" step="0.05"></label>
+  </div>
+  <div class="panels">
+    <div class="panel net-panel">
+      <canvas class="net" aria-label="Agents colored by belief; ringed agents have real data; size shows position"></canvas>
+      <div class="legend caption">
+        <span><i class="sw no"></i> believes NO</span>
+        <span><i class="sw mid"></i> unsure</span>
+        <span><i class="sw yes"></i> believes YES</span>
+        <span><i class="sw ring"></i> has real data</span>
+        <span><i class="sw post"></i> posting</span>
+      </div>
+    </div>
+    <div class="panel side">
+      <canvas class="chart" aria-label="Market price over time against the hidden truth"></canvas>
+      <dl class="stats">
+        <div><dt class="label">Price</dt><dd data-stat="price"></dd></div>
+        <div><dt class="label">Truth</dt><dd data-stat="truth"></dd></div>
+        <div><dt class="label">Off by</dt><dd data-stat="error"></dd></div>
+        <div><dt class="label">Posts</dt><dd data-stat="posts"></dd></div>
+      </dl>
+      <p class="vs caption" data-stat="vs"></p>
+      <ol class="feed" aria-live="off"></ol>
+    </div>
+  </div>
+  <div class="timeline">
+    <button type="button" class="play" aria-pressed="false">Play</button>
+    <input type="range" class="scrub" min="0" max="239" value="0" aria-label="Scrub through time">
+    <span class="tick caption" data-stat="tick"></span>
+    <button type="button" class="reseed">New world</button>
+  </div>
+  <noscript><p class="caption">This simulation needs JavaScript. In short: a market alone lands part of the way to the truth, free posting gets closer slowly, and posts that require a position get closest with fewer posts.</p></noscript>
+</figure>
+
+<p>A few things to try. Set the social layer off and watch where the price settles: the market alone recovers part of the crowd's error but not all of it, because the crowd outnumbers the agents with data. Switch to <em>anyone posts</em> and the price creeps closer, slowly, through a lot of posts. Switch to <em>posts need a position</em> and it gets closer still with about half as many posts, because the posts that move people are the ones with money behind them. Then raise <em>how wrong the crowd is</em>, or cut the share of agents with data to five percent, and see how far each version can be pushed before it fails.</p>
+<h2>What the toy leaves out</h2>
+<p>Real markets have budgets, fees, manipulation, and people who are confidently wrong with large positions. The model has none of these. Agents here never run out of money, never lie about a position, and never resolve the event, so nobody is ever paid for being right. The point of the simulation is narrower: to show the mechanism the proposal depends on, that tying speech to a stake changes which speech people weigh, and to let you feel how much it matters as the crowd gets louder or the informed get rarer.</p>
+</div>
+<!-- entry-tail -->
+<footer class="tail prose">
+<section><h2 class="label">Tags</h2><ul class="tags"><li><a href="../../tags/kaletopia/">kaletopia</a></li><li><a href="../../tags/markets/">markets</a></li><li><a href="../../tags/prediction-markets/">prediction markets</a></li><li><a href="../../tags/networks/">networks</a></li><li><a href="../../tags/hayek/">hayek</a></li></ul></section>
+
+<section><h2 class="label">Sources</h2><ol class="sources"><li><a href="https://www.kaletopia.com/p/the-social-event-network-rough-draft">The Social (Event) Network, rough draft</a>, Lucas Pfeiffer, December 2024</li><li><a href="https://www.econlib.org/library/Essays/hykKnw.html">The Use of Knowledge in Society</a>, Friedrich Hayek, 1945</li><li><a href="https://mason.gmu.edu/~rhanson/mktscore.pdf">Logarithmic market scoring rules for modular combinatorial information aggregation</a>, Robin Hanson, 2002</li></ol></section>
+<p class="caption contributors">Contributors: Lucas Pfeiffer, Claude.</p>
+<p class="caption license">This entry is licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA-4.0</a>. <a href="https://github.com/lucaspfeiffer/kaletopia/tree/main/entries/social-event-markets">Edit on GitHub</a>.</p>
+</footer>
+<!-- /entry-tail -->
+</article>
+</main>
+<!-- footer -->
+<footer class="site-footer">
+  <div class="wrap">
+    <hr class="rule-strong">
+    <div class="cols">
+      <a class="name" href="../../">Kaletopia</a>
+      <nav aria-label="Footer"><a href="../../events/">Events</a><a href="../../people/">People</a><a href="../../places/">Places</a><a href="../../ideas/">Ideas</a><a href="../../works/">Works</a><a href="../../organizations/">Organizations</a><a href="../../on-this-day/">On this day</a><a href="../../about/">About</a></nav>
+    </div>
+    <p>Kaletopia is open: the writing is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, the code is MIT, and both live on <a href="https://github.com/lucaspfeiffer/kaletopia">GitHub</a>. Not for profit, ever.</p>
+  </div>
+</footer>
+<!-- /footer -->
+</body>
+</html>

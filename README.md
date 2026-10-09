@@ -8,29 +8,49 @@ Live: https://lucaspfeiffer.github.io/kaletopia/ until the site moves to
 kaletopia.com. The newsletter at www.kaletopia.com will move to
 blog.kaletopia.com at the same time; see "Going live" below.
 
-## How it is built
+## How it is made
 
-- [Astro](https://astro.build) renders everything to static files. No server.
-- Entries are Markdown with frontmatter under `src/content/entries/<slug>/`.
-  The schema in `src/content.config.ts` is the contract; the build fails
-  loudly when an entry breaks it.
-- Simulations are plain TypeScript under `src/sims/<name>/`: a pure engine
-  with no DOM, plus a view that draws to canvas, plus an Astro component that
-  provides the markup. No UI framework.
-- `/api/entries.json` is a machine-readable index of every entry, built on
-  each deploy, for the native app that will come later.
-- The front page is a view over the entries: featured, on this day, latest.
+Plain HTML, CSS, and JavaScript. Nothing to install.
 
-## Run it
+- Every entry is a hand-written page at `entries/<slug>/index.html`, with its
+  metadata (title, kind, dates, tags, sources, contributors) in a small JSON
+  block in the page's `<head>`, and its images beside it in the same folder.
+- `scripts/build.js` is one Node script with no dependencies. It reads the
+  entries and regenerates the front page, the entries index, a page per
+  section, a page per tag, `api/entries.json`, and the shared masthead and
+  footer on every page (between `<!-- masthead -->` and `<!-- footer -->`
+  marker comments). Run it after editing an entry:
 
-Requires Node 22 or newer.
+  ```
+  node scripts/build.js
+  ```
+
+  Pages it writes in full begin with a comment saying so. Do not edit those;
+  edit the entries and run the build again.
+- The site is served straight from the `main` branch by GitHub Pages. Every
+  path is relative, so it works at any URL.
+- `assets/js/site.js` is the only script on ordinary pages. It sets the
+  paper's date to the reader's day and fills "on this day" from
+  `api/entries.json`. Simulations live under `sims/` and load only on the
+  entries that use them.
+- `api/entries.json` is a machine-readable index of every entry, for the
+  native app that will come later.
+
+## Run it locally
+
+Any static file server works. For example:
 
 ```
-npm install
-npm run dev
+python3 -m http.server 8000
 ```
 
-`npm run build` writes the site to `dist/`.
+Then open http://localhost:8000/ . Or open `index.html` directly in a browser;
+only the "on this day" fetch needs a server.
+
+## Contribute
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md). Entries are edited and the bar is
+craft, not coverage.
 
 ## Going live at kaletopia.com
 
@@ -45,17 +65,11 @@ The plan, for when the site is ready. Nothing here has happened yet.
    `lucaspfeiffer.github.io`, and replace the bare-domain forwarding with
    GitHub Pages' A records (185.199.108.153, .109.153, .110.153, .111.153).
    In the repo's Pages settings, set the custom domain to `kaletopia.com`
-   and enforce HTTPS once it verifies. Add `public/CNAME` containing
-   `kaletopia.com`. Remove the `BASE_PATH` line from
-   `.github/workflows/deploy.yml`.
-3. **Old links.** `public/404.html` forwards any `/p/...` path to
+   and enforce HTTPS once it verifies. Add a `CNAME` file at the repo root
+   containing `kaletopia.com`.
+3. **Old links.** `404.html` forwards any `/p/...` path to
    `blog.kaletopia.com`, so post links shared before the move keep working.
    Update the newsletter URLs in entry sources to the new host.
-
-## Contribute
-
-Read [CONTRIBUTING.md](CONTRIBUTING.md). Entries are edited and the bar is
-craft, not coverage.
 
 ## License
 

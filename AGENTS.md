@@ -1,33 +1,15 @@
-## Development
+# Kaletopia conventions
 
-When starting the dev server, use background mode:
-
-```
-astro dev --background
-```
-
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
-
-## Documentation
-
-Full documentation: https://docs.astro.build
-
-Consult these guides before working on related tasks:
-
-- [Adding pages, dynamic routes, or middleware](https://docs.astro.build/en/guides/routing/)
-- [Working with Astro components](https://docs.astro.build/en/basics/astro-components/)
-- [Using React, Vue, Svelte, or other framework components](https://docs.astro.build/en/guides/framework-components/)
-- [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
-- [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
-- [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
-
-## Kaletopia conventions
-
-- Entries live in `src/content/entries/<slug>/index.mdx`; the schema is
-  `src/content.config.ts`. Read `CONTRIBUTING.md` before adding one.
-- Simulations live in `src/sims/<name>/` as a TypeScript engine plus an Astro
-  component. No UI framework; vanilla DOM and canvas.
-- Build internal links with `withBase()` from `src/lib/url.ts`, never a bare
-  leading slash, because the site may be served under a base path.
+- Plain HTML, CSS, and JavaScript. No framework, no package manager, no
+  dependencies. Do not add any.
+- Entries live at `entries/<slug>/index.html` with metadata in the
+  `<script type="application/json" id="entry-meta">` block. Read
+  `CONTRIBUTING.md` before adding one.
+- After editing entries, run `node scripts/build.js` (Node 18 or newer) and
+  commit the regenerated pages with the change. Never hand-edit a file whose
+  first line says it was generated.
+- All links and asset paths are relative. The site must work at any base URL.
+- Simulations live in `sims/<name>/` as ES modules plus a stylesheet; their
+  markup is written into the entry that uses them.
 - Code is MIT, content is CC BY-SA 4.0. Keep that split.
-- Use Node 22+ (`/opt/homebrew/bin/node` on Lucas's machine).
+- Serve locally with `python3 -m http.server 8000`.
