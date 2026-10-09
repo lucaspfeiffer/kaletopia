@@ -28,7 +28,7 @@ welcome, and they are edited.
    `index.mdx`. The slug is lowercase with hyphens and becomes the URL.
 2. Fill in the frontmatter. `src/content.config.ts` is the schema and the
    build fails with a readable message if something is missing.
-3. Put images in the entry's folder and reference them relatively.
+3. Put a hero image in `public/media/<slug>/` and point `hero.src` at `/media/<slug>/...`. Inline images can sit in the entry folder and be referenced relatively.
 4. Run `npm run dev` and read your entry on a phone-width window as well as a
    desktop one.
 5. Open a pull request. The description should say why this subject belongs.
